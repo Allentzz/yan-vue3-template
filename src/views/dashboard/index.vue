@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue"
+import { ref, reactive, computed } from "vue"
 
 const data = ref([
   { value: 7, name: "A", date: "2023-10-04" },
@@ -7,6 +7,186 @@ const data = ref([
   { value: 9, name: "C", date: "2023-10-06" },
   { value: 3, name: "D", date: "2023-10-07" },
   { value: 6, name: "E", date: "2023-10-08" }
+])
+
+const dataPay = ref([
+  {
+    date: "2020-06-12",
+    value: 7
+  },
+  {
+    date: "2020-06-13",
+    value: 5
+  },
+  {
+    date: "2020-06-14",
+    value: 4
+  },
+  {
+    date: "2020-06-15",
+    value: 2
+  },
+  {
+    date: "2020-06-16",
+    value: 4
+  },
+  {
+    date: "2020-06-17",
+    value: 7
+  },
+  {
+    date: "2020-06-18",
+    value: 5
+  },
+  {
+    date: "2020-06-19",
+    value: 6
+  },
+  {
+    date: "2020-06-20",
+    value: 5
+  },
+  {
+    date: "2020-06-21",
+    value: 9
+  },
+  {
+    date: "2020-06-22",
+    value: 6
+  },
+  {
+    date: "2020-06-23",
+    value: 3
+  },
+  {
+    date: "2020-06-24",
+    value: 1
+  },
+  {
+    date: "2020-06-25",
+    value: 5
+  },
+  {
+    date: "2020-06-26",
+    value: 3
+  },
+  {
+    date: "2020-06-27",
+    value: 6
+  },
+  {
+    date: "2020-06-18",
+    value: 5
+  }
+])
+
+const saleSearch = reactive({
+  type: "saleroom",
+  dateType: 0,
+  datetime: ""
+})
+
+// 销售量趋势数据
+const saleroomData1 = reactive([
+  {
+    month: "1月",
+    value: 816
+  },
+  {
+    month: "2月",
+    value: 542
+  },
+  {
+    month: "3月",
+    value: 914
+  },
+  {
+    month: "4月",
+    value: 781
+  },
+  {
+    month: "5月",
+    value: 355
+  },
+  {
+    month: "6月",
+    value: 796
+  },
+  {
+    month: "7月",
+    value: 714
+  },
+  {
+    month: "8月",
+    value: 1195
+  },
+  {
+    month: "9月",
+    value: 1055
+  },
+  {
+    month: "10月",
+    value: 271
+  },
+  {
+    month: "11月",
+    value: 384
+  },
+  {
+    month: "12月",
+    value: 1098
+  }
+])
+// 访问量趋势数据
+const saleroomData2 = reactive([
+  {
+    month: "1月",
+    value: 1098
+  },
+  {
+    month: "2月",
+    value: 384
+  },
+  {
+    month: "3月",
+    value: 271
+  },
+  {
+    month: "4月",
+    value: 1055
+  },
+  {
+    month: "5月",
+    value: 1195
+  },
+  {
+    month: "6月",
+    value: 714
+  },
+  {
+    month: "7月",
+    value: 796
+  },
+  {
+    month: "8月",
+    value: 355
+  },
+  {
+    month: "9月",
+    value: 781
+  },
+  {
+    month: "10月",
+    value: 914
+  },
+  {
+    month: "11月",
+    value: 542
+  },
+  {
+    month: "12月",
+    value: 816
+  }
 ])
 
 // setInterval(() => {
@@ -17,21 +197,6 @@ const data = ref([
 // }, 1000)
 
 const option = computed(() => {
-  // return {
-  //   xAxis: {
-  //     type: "category",
-  //     data: data.value.map((el) => el.name)
-  //   },
-  //   yAxis: {
-  //     type: "value"
-  //   },
-  //   series: [
-  //     {
-  //       data: data.value.map((el) => el.value),
-  //       type: "line"
-  //     }
-  //   ]
-  // }
   return {
     color: "#975fe5",
     tooltip: {
@@ -74,23 +239,77 @@ const option = computed(() => {
     ]
   }
 })
+
+const payNumChartOption = computed(() => {
+  return {
+    tooltip: {
+      trigger: "axis",
+      formatter: '<i class="ele-chart-dot" style="background: #5b8ff9;"></i>{b0}: {c0}'
+    },
+    grid: {
+      top: 10,
+      bottom: 0,
+      left: 0,
+      right: 0
+    },
+    xAxis: [
+      {
+        show: false,
+        type: "category",
+        data: dataPay.value.map((d) => d.date)
+      }
+    ],
+    yAxis: [
+      {
+        show: false,
+        type: "value",
+        splitLine: {
+          show: false
+        }
+      }
+    ],
+    series: [
+      {
+        type: "bar",
+        data: dataPay.value.map((d) => d.value)
+      }
+    ]
+  }
+})
+
+const saleChartOption = computed(() => {
+  const isSale = saleSearch.type === "saleroom"
+  const data = isSale ? saleroomData1 : saleroomData2
+  return {
+    tooltip: {
+      trigger: "axis"
+    },
+    xAxis: [
+      {
+        type: "category",
+        data: data.map((d) => d.month)
+      }
+    ],
+    yAxis: [
+      {
+        type: "value"
+      }
+    ],
+    series: [
+      {
+        type: "bar",
+        data: data.map((d) => d.value)
+      }
+    ]
+  }
+})
 </script>
 
 <template>
-  <!-- <el-row>
-    <el-col :span="4">
-      <div>总销售额</div>
-    </el-col>
-    <el-col :span="10">
-      <e-charts class="h-80" :option="option" />
-    </el-col>
-    <el-col :span="10">
-      <e-charts class="h-80" :option="option" />
-    </el-col>
-  </el-row> -->
   <div class="app-container">
-    <div class="flex justify-around">
-      <div class="w-96 h-50 flex flex-col bg-white rounded-md">
+    <div class="flex justify-between box-border">
+      <!-- 总销售额 -->
+      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mx-2">
         <div class="px-4 py-3 border-b border-gray-200 font-sans text-sm" text-gray-600>总销售额</div>
         <div class="px-4 py-5 font-sans text-3xl">￥126,560</div>
         <div class="flex mx-4 pb-4 border-b border-gray-200">
@@ -105,10 +324,11 @@ const option = computed(() => {
         <div class="px-4 py-3 font-sans text-sm text-gray-600">日销售额￥12,423</div>
       </div>
 
-      <div class="w-96 h-50 flex flex-col bg-white rounded-md">
+      <!-- 访问量 -->
+      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mx-2">
         <div class="flex justify-between px-4 py-3 border-b border-gray-200">
           <div class="font-sans text-sm" text-gray-600>访问量</div>
-          <el-tag size="mini" type="danger">日</el-tag>
+          <el-tag type="danger">日</el-tag>
         </div>
         <!-- <div class="h-24"> -->
         <div class="h-10 px-4 py-5 font-sans text-3xl">8,846</div>
@@ -117,25 +337,30 @@ const option = computed(() => {
         <div class="px-4 py-3 font-sans text-sm text-gray-600">日访问量1,234</div>
       </div>
 
-      <div class="w-96 h-50 flex flex-col bg-white rounded-md">
-        <div class="px-4 py-3 border-b border-gray-200 font-sans text-sm" text-gray-600>总销售额</div>
-        <div class="px-4 py-5 font-sans text-3xl">￥126,560</div>
-        <div class="flex mx-4 pb-4 border-b border-gray-200">
-          <div class="font-sans text-sm flex items-center text-gray-600">
-            周同比12% <CaretTop style="width: 1em; height: 1em; margin-right: 8px; display: inline; color: #ff4d4f" />
-          </div>
-          <div class="font-sans text-sm flex items-center text-gray-600">
-            日同比11%
-            <CaretBottom style="width: 1em; height: 1em; margin-right: 8px; display: inline; color: #52c41a" />
-          </div>
+      <!-- 支付笔数 -->
+      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mx-2">
+        <div class="flex justify-between px-4 py-3 border-b border-gray-200">
+          <div class="font-sans text-sm" text-gray-600>支付笔数</div>
+          <el-tag>月</el-tag>
         </div>
-        <div class="px-4 py-3 font-sans text-sm text-gray-600">日销售额￥12,423</div>
+        <!-- <div class="h-24"> -->
+        <div class="h-10 px-4 py-5 font-sans text-3xl">6,560</div>
+        <e-charts class="h-17 pb-3 border-b border-gray-200" :option="payNumChartOption" />
+        <!-- </div> -->
+        <div class="px-4 py-3 font-sans text-sm text-gray-600">转化率60%</div>
       </div>
 
-      <div class="w-96 h-50 flex flex-col bg-white rounded-md">
-        <div class="px-4 py-3 border-b border-gray-200 font-sans text-sm" text-gray-600>总销售额</div>
-        <div class="px-4 py-5 font-sans text-3xl">￥126,560</div>
-        <div class="flex mx-4 pb-4 border-b border-gray-200">
+      <!-- 运营活动效果 -->
+      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mx-2">
+        <div class="flex justify-between px-4 py-3 border-b border-gray-200">
+          <div class="font-sans text-sm" text-gray-600>运营活动效果</div>
+          <el-tag type="success">周</el-tag>
+        </div>
+        <div class="px-4 py-5 font-sans text-3xl">78%</div>
+        <div class="mx-4 pb-4 border-b border-gray-200">
+          <el-progress :percentage="78" :stroke-width="10" color="#13c2c2" />
+        </div>
+        <div class="px-4 py-3 font-sans text-sm text-gray-600 flex">
           <div class="font-sans text-sm flex items-center text-gray-600">
             周同比12% <CaretTop style="width: 1em; height: 1em; margin-right: 8px; display: inline; color: #ff4d4f" />
           </div>
@@ -144,8 +369,54 @@ const option = computed(() => {
             <CaretBottom style="width: 1em; height: 1em; margin-right: 8px; display: inline; color: #52c41a" />
           </div>
         </div>
-        <div class="px-4 py-3 font-sans text-sm text-gray-600">日销售额￥12,423</div>
       </div>
+    </div>
+    <div class="w-full h-100 mt-4 bg-white rounded-md">
+      <div class="demo-monitor-tool">
+        <el-tabs v-model="saleSearch.type" class="demo-monitor-tabs">
+          <el-tab-pane label="销售额" name="saleroom" />
+          <el-tab-pane label="访问量" name="visits" />
+        </el-tabs>
+      </div>
+      <div>
+        <span v-if="saleSearch.type === 'saleroom'">销售额趋势</span>
+        <span v-else>访问量趋势</span>
+      </div>
+      <e-charts ref="saleChart" style="height: 285px" :option="saleChartOption" />
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+/* 销售额、访问量工具栏 */
+.demo-monitor-tool {
+  padding: 0 20px;
+
+  .demo-monitor-tabs {
+    height: 51px;
+  }
+
+  :deep(.el-tabs__item) {
+    height: 51px;
+    line-height: 51px;
+    font-size: 15px;
+  }
+
+  :deep(.el-tabs__nav-wrap:after) {
+    display: none;
+  }
+}
+
+/* 小标题 */
+.demo-monitor-title {
+  padding: 0 20px;
+  margin: 15px 0 5px 0;
+}
+
+/* 排名 item */
+.demo-monitor-rank-item {
+  padding: 0 20px;
+  line-height: 20px;
+  margin-top: 18px;
+}
+</style>

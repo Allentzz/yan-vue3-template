@@ -131,7 +131,7 @@ const tipLineWidth = computed(() => {
   &:hover {
     background-color: v-bind(sidebarMenuHoverBgColor);
   }
-  display: block;
+  // display: block;
   * {
     vertical-align: middle;
   }
