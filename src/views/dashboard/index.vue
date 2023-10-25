@@ -189,6 +189,16 @@ const saleroomData2 = reactive([
   }
 ])
 
+const saleroomRankData = [
+  { name: "工专路 1 号店", value: "323,234" },
+  { name: "工专路 2 号店", value: "323,234" },
+  { name: "工专路 3 号店", value: "323,234" },
+  { name: "工专路 4 号店", value: "323,234" },
+  { name: "工专路 5 号店", value: "323,234" },
+  { name: "工专路 6 号店", value: "323,234" },
+  { name: "工专路 7 号店", value: "323,234" }
+]
+
 // setInterval(() => {
 //   data.value = data.value.map((item) => ({
 //     ...item,
@@ -271,6 +281,9 @@ const payNumChartOption = computed(() => {
     series: [
       {
         type: "bar",
+        itemStyle: {
+          color: "#6495ED" // 柱状图颜色
+        },
         data: dataPay.value.map((d) => d.value)
       }
     ]
@@ -298,6 +311,10 @@ const saleChartOption = computed(() => {
     series: [
       {
         type: "bar",
+        barCategoryGap: "60%",
+        itemStyle: {
+          color: "#6495ED" // 柱状图颜色
+        },
         data: data.map((d) => d.value)
       }
     ]
@@ -307,9 +324,9 @@ const saleChartOption = computed(() => {
 
 <template>
   <div class="app-container">
-    <div class="flex justify-between box-border">
+    <div class="flex w-full justify-between box-border">
       <!-- 总销售额 -->
-      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mx-2">
+      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mr-3">
         <div class="px-4 py-3 border-b border-gray-200 font-sans text-sm" text-gray-600>总销售额</div>
         <div class="px-4 py-5 font-sans text-3xl">￥126,560</div>
         <div class="flex mx-4 pb-4 border-b border-gray-200">
@@ -325,33 +342,33 @@ const saleChartOption = computed(() => {
       </div>
 
       <!-- 访问量 -->
-      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mx-2">
+      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mr-3">
         <div class="flex justify-between px-4 py-3 border-b border-gray-200">
           <div class="font-sans text-sm" text-gray-600>访问量</div>
           <el-tag type="danger">日</el-tag>
         </div>
         <!-- <div class="h-24"> -->
         <div class="h-10 px-4 py-5 font-sans text-3xl">8,846</div>
-        <e-charts class="h-17 pb-3 border-b border-gray-200" :option="option" />
+        <e-charts class="w-full h-17 pb-3 border-b border-gray-200" :option="option" />
         <!-- </div> -->
         <div class="px-4 py-3 font-sans text-sm text-gray-600">日访问量1,234</div>
       </div>
 
       <!-- 支付笔数 -->
-      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mx-2">
+      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mr-3">
         <div class="flex justify-between px-4 py-3 border-b border-gray-200">
           <div class="font-sans text-sm" text-gray-600>支付笔数</div>
           <el-tag>月</el-tag>
         </div>
         <!-- <div class="h-24"> -->
         <div class="h-10 px-4 py-5 font-sans text-3xl">6,560</div>
-        <e-charts class="h-17 pb-3 border-b border-gray-200" :option="payNumChartOption" />
+        <e-charts class="h-17 pb-3 border-b border-gray-200 w-full" :option="payNumChartOption" :auto-resize="true" />
         <!-- </div> -->
         <div class="px-4 py-3 font-sans text-sm text-gray-600">转化率60%</div>
       </div>
 
       <!-- 运营活动效果 -->
-      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md mx-2">
+      <div class="w-3/12 h-50 flex flex-col bg-white rounded-md">
         <div class="flex justify-between px-4 py-3 border-b border-gray-200">
           <div class="font-sans text-sm" text-gray-600>运营活动效果</div>
           <el-tag type="success">周</el-tag>
@@ -371,18 +388,47 @@ const saleChartOption = computed(() => {
         </div>
       </div>
     </div>
-    <div class="w-full h-100 mt-4 bg-white rounded-md">
+
+    <!-- 销售量/访问量 -->
+    <div class="w-full h-100 mt-3 bg-white rounded-md box-border">
       <div class="demo-monitor-tool">
         <el-tabs v-model="saleSearch.type" class="demo-monitor-tabs">
           <el-tab-pane label="销售额" name="saleroom" />
           <el-tab-pane label="访问量" name="visits" />
         </el-tabs>
       </div>
-      <div>
-        <span v-if="saleSearch.type === 'saleroom'">销售额趋势</span>
-        <span v-else>访问量趋势</span>
+      <div class="flex w-full h-80 border-t border-gray-200">
+        <div class="w-5/7">
+          <div class="font-sans text-sm text-gray-600 px-8 mt-4">
+            <span v-if="saleSearch.type === 'saleroom'">销售额趋势</span>
+            <span v-else>访问量趋势</span>
+          </div>
+          <e-charts ref="saleChart" class="w-full" :option="saleChartOption" />
+        </div>
+        <div class="w-2/7">
+          <div class="font-sans text-sm text-gray-600 px-8 mt-4 flex">
+            <div>门店</div>
+            <div>
+              <span v-if="saleSearch.type === 'saleroom'">销售额</span>
+              <span v-else>访问量</span>
+            </div>
+            <div>排名</div>
+          </div>
+          <div
+            v-for="(item, index) in saleroomRankData"
+            :key="index"
+            class="flex justify-between justify-self-center p-3 w-full"
+          >
+            <div class="flex h-5">
+              <div class="bg-slate-800 text-white w-5 h-5 rounded-full text-center leading-5 text-sm">
+                {{ index + 1 }}
+              </div>
+              <div class="text-sm ml-2">{{ item.name }}</div>
+            </div>
+            <div class="text-sm text-gray-500">{{ item.value }}</div>
+          </div>
+        </div>
       </div>
-      <e-charts ref="saleChart" style="height: 285px" :option="saleChartOption" />
     </div>
   </div>
 </template>
