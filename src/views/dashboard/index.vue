@@ -199,6 +199,247 @@ const saleroomRankData = [
   { name: "工专路 7 号店", value: "323,234" }
 ]
 
+const visitsData = [
+  {
+    time: "16:00",
+    visits: 15,
+    views: 45
+  },
+  {
+    time: "16:05",
+    visits: 39,
+    views: 169
+  },
+  {
+    time: "16:10",
+    visits: 152,
+    views: 400
+  },
+  {
+    time: "16:15",
+    visits: 94,
+    views: 285
+  },
+  {
+    time: "16:20",
+    visits: 102,
+    views: 316
+  },
+  {
+    time: "16:25",
+    visits: 86,
+    views: 148
+  },
+  {
+    time: "16:30",
+    visits: 39,
+    views: 150
+  },
+  {
+    time: "16:35",
+    visits: 38,
+    views: 234
+  },
+  {
+    time: "16:40",
+    visits: 95,
+    views: 158
+  },
+  {
+    time: "16:45",
+    visits: 30,
+    views: 100
+  },
+  {
+    time: "16:50",
+    visits: 86,
+    views: 266
+  }
+]
+
+const hotSearch = [
+  {
+    name: "软妹子",
+    value: 23
+  },
+  {
+    name: "汪星人",
+    value: 23
+  },
+  {
+    name: "长腿欧巴",
+    value: 23
+  },
+  {
+    name: "萝莉",
+    value: 22
+  },
+  {
+    name: "辣~",
+    value: 22
+  },
+  {
+    name: "K歌",
+    value: 22
+  },
+  {
+    name: "大长腿",
+    value: 21
+  },
+  {
+    name: "川妹子",
+    value: 21
+  },
+  {
+    name: "女神",
+    value: 21
+  },
+  {
+    name: "米粉",
+    value: 20
+  },
+  {
+    name: "专注设计",
+    value: 20
+  },
+  {
+    name: "逛街",
+    value: 20
+  },
+  {
+    name: "黑长直",
+    value: 20
+  },
+  {
+    name: "海纳百川",
+    value: 19
+  },
+  {
+    name: "萌萌哒",
+    value: 19
+  },
+  {
+    name: "坚持",
+    value: 19
+  },
+  {
+    name: "话唠",
+    value: 19
+  },
+  {
+    name: "果粉",
+    value: 18
+  },
+  {
+    name: "喵星人",
+    value: 18
+  },
+  {
+    name: "花粉",
+    value: 18
+  },
+  {
+    name: "衬衫控",
+    value: 18
+  },
+  {
+    name: "宅男",
+    value: 17
+  },
+  {
+    name: "小清新",
+    value: 17
+  },
+  {
+    name: "眼镜男",
+    value: 17
+  },
+  {
+    name: "琼瑶",
+    value: 17
+  },
+  {
+    name: "穷游党",
+    value: 16
+  },
+  {
+    name: "铲屎官",
+    value: 16
+  },
+  {
+    name: "正太",
+    value: 16
+  },
+  {
+    name: "中二病",
+    value: 16
+  },
+  {
+    name: "夜猫子",
+    value: 15
+  },
+  {
+    name: "逗比",
+    value: 15
+  },
+  {
+    name: "腹黑",
+    value: 15
+  },
+  {
+    name: "吃鸡",
+    value: 15
+  },
+  {
+    name: "为了联盟",
+    value: 14
+  },
+  {
+    name: "背包客",
+    value: 14
+  },
+  {
+    name: "民谣",
+    value: 14
+  },
+  {
+    name: "为了部落",
+    value: 14
+  },
+  {
+    name: "懒癌患者",
+    value: 13
+  },
+  {
+    name: "追剧",
+    value: 13
+  },
+  {
+    name: "IT民工",
+    value: 13
+  },
+  {
+    name: "CNB成员",
+    value: 13
+  },
+  {
+    name: "选择困难",
+    value: 12
+  },
+  {
+    name: "锤粉",
+    value: 12
+  },
+  {
+    name: "欧皇",
+    value: 12
+  },
+  {
+    name: "仙气十足",
+    value: 12
+  }
+]
+
 // setInterval(() => {
 //   data.value = data.value.map((item) => ({
 //     ...item,
@@ -297,15 +538,33 @@ const saleChartOption = computed(() => {
     tooltip: {
       trigger: "axis"
     },
+    grid: {
+      top: "10%",
+      left: "5%",
+      right: "5%",
+      bottom: "5%",
+      containLabel: true
+    },
     xAxis: [
       {
         type: "category",
-        data: data.map((d) => d.month)
+        data: data.map((d) => d.month),
+        axisTick: {
+          alignWithLabel: true,
+          length: 0
+        }
       }
     ],
     yAxis: [
       {
-        type: "value"
+        type: "value",
+        splitLine: {
+          lineStyle: {
+            type: "dotted",
+            width: 2
+          },
+          show: true
+        }
       }
     ],
     series: [
@@ -316,6 +575,114 @@ const saleChartOption = computed(() => {
           color: "#6495ED" // 柱状图颜色
         },
         data: data.map((d) => d.value)
+      }
+    ]
+  }
+})
+
+const visitsOption = computed(() => {
+  return {
+    tooltip: {
+      trigger: "axis"
+    },
+    legend: {
+      data: ["浏览量", "访问量"],
+      right: 20
+    },
+    grid: {
+      top: "10%",
+      left: "3%",
+      right: "3%",
+      // bottom: "10%",
+      containLabel: true
+    },
+    xAxis: [
+      {
+        type: "category",
+        boundaryGap: false,
+        data: visitsData.map((d) => d.time),
+        axisTick: {
+          alignWithLabel: true
+          // length: 0
+        }
+      }
+    ],
+    yAxis: [
+      {
+        type: "value",
+        splitLine: {
+          lineStyle: {
+            type: "dotted",
+            width: 2
+          },
+          show: true
+        }
+      }
+    ],
+    series: [
+      {
+        name: "浏览量",
+        type: "line",
+        smooth: true,
+        symbol: "none",
+        color: "#5e94fb",
+        areaStyle: {
+          opacity: 0.5
+        },
+        data: visitsData.map((d) => d.views)
+      },
+      {
+        name: "访问量",
+        type: "line",
+        smooth: true,
+        symbol: "none",
+        color: "#61ddaa",
+        areaStyle: {
+          opacity: 0.5
+        },
+        data: visitsData.map((d) => d.visits)
+      }
+    ]
+  }
+})
+
+const hotSearchOption = computed(() => {
+  return {
+    tooltip: {
+      show: true,
+      confine: true,
+      borderWidth: 1
+    },
+    series: [
+      {
+        type: "wordCloud",
+        top: -20,
+        width: "100%",
+        height: "100%",
+        sizeRange: [12, 20],
+        gridSize: 6,
+        textStyle: {
+          normal: {
+            color: function () {
+              //文字颜色的随机色
+              return (
+                "rgb(" +
+                [
+                  Math.round(Math.random() * 250),
+                  Math.round(Math.random() * 250),
+                  Math.round(Math.random() * 250)
+                ].join(",") +
+                ")"
+              )
+            }
+          },
+          //悬停上去的字体的阴影设置
+          emphasis: {
+            shadowBlur: 10,
+            shadowColor: "#333"
+          }
+        },
+        data: hotSearch
       }
     ]
   }
@@ -398,14 +765,14 @@ const saleChartOption = computed(() => {
         </el-tabs>
       </div>
       <div class="flex w-full h-80 border-t border-gray-200">
-        <div class="w-5/7">
+        <div class="w-9/12">
           <div class="font-sans text-sm text-gray-600 px-8 mt-4">
             <span v-if="saleSearch.type === 'saleroom'">销售额趋势</span>
             <span v-else>访问量趋势</span>
           </div>
           <e-charts ref="saleChart" class="w-full" :option="saleChartOption" />
         </div>
-        <div class="w-2/7">
+        <div class="w-3/12">
           <div class="font-sans text-sm text-gray-600 px-8 mt-4 flex">
             <div>门店</div>
             <div>
@@ -428,6 +795,18 @@ const saleChartOption = computed(() => {
             <div class="text-sm text-gray-500">{{ item.value }}</div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- 最近1小时访问情况 -->
+    <div class="w-full h-100 mt-3 flex">
+      <div class="w-9/12 bg-white rounded-md box-border mr-3">
+        <div class="font-sans text-base text-gray-700 px-8 mt-4 pb-4 border-b border-gray-200">最近1小时访问情况</div>
+        <e-charts ref="visitsChart" class="w-full" :option="visitsOption" />
+      </div>
+      <div class="w-3/12 bg-white rounded-md box-border">
+        <div class="font-sans text-base text-gray-700 px-8 mt-4 pb-4 border-b border-gray-200">热门搜索</div>
+        <e-charts ref="visits2Chart" class="w-full" :option="hotSearchOption" />
       </div>
     </div>
   </div>

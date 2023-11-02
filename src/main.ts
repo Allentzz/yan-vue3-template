@@ -20,7 +20,7 @@ import "@/styles/index.scss"
 
 import ECharts from "vue-echarts" // 引入ECharts
 import "echarts" // 全局引入echarts
-
+import "echarts-wordcloud"
 const app = createApp(App).component("ECharts", ECharts)
 
 /** 加载插件 */
