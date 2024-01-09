@@ -55,24 +55,38 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "Dashboard",
         meta: {
           title: "首页",
-          svgIcon: "dashboard",
+          elIcon: "Crop",
           affix: true
         }
       }
     ]
   },
   {
-    path: "/unocss",
+    path: "/system",
     component: Layouts,
-    redirect: "/unocss/index",
+    redirect: "/system/user",
+    name: "系统管理",
+    meta: {
+      title: "系统管理",
+      elIcon: "Setting"
+    },
     children: [
       {
-        path: "index",
-        component: () => import("@/views/unocss/index.vue"),
-        name: "UnoCSS",
+        path: "user",
+        component: () => import("@/views/system/user/index.vue"),
+        name: "用户管理",
         meta: {
-          title: "UnoCSS",
-          svgIcon: "unocss"
+          title: "用户管理",
+          elIcon: "User"
+        }
+      },
+      {
+        path: "role",
+        component: () => import("@/views/system/role/index.vue"),
+        name: "角色管理",
+        meta: {
+          title: "角色管理",
+          elIcon: "Avatar"
         }
       }
     ]

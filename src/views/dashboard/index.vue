@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref, reactive, computed } from "vue"
-
 const data = ref([
   { value: 7, name: "A", date: "2023-10-04" },
   { value: 4, name: "B", date: "2023-10-05" },
@@ -716,7 +715,7 @@ const hotSearchOption = computed(() => {
         </div>
         <!-- <div class="h-24"> -->
         <div class="h-10 px-4 py-5 font-sans text-3xl">8,846</div>
-        <e-charts class="w-full h-17 pb-3 border-b border-gray-200" :option="option" />
+        <e-charts id="chart1" class="max-w-full h-17 pb-3 border-b border-gray-200" :option="option" />
         <!-- </div> -->
         <div class="px-4 py-3 font-sans text-sm text-gray-600">日访问量1,234</div>
       </div>
