@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue"
-import { updateRoleDataApi, getRoleDataApi, createRoleDataApi, deleteRoleDataApi } from "@/api/system"
-import { type GetRoleData } from "@/api/system/types/role"
+import { updateRoleDataApi, getRoleDataApi, createRoleDataApi, deleteRoleDataApi } from "@/api/system/role"
+import { type GetRoleData } from "@/api/system/role/types/role"
 import { type FormInstance, type FormRules, ElMessage, ElMessageBox } from "element-plus"
 import { Search, Refresh, CirclePlus, Delete, Download, RefreshRight } from "@element-plus/icons-vue"
 import { usePagination } from "@/hooks/usePagination"
@@ -292,3 +292,4 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getRole
   justify-content: flex-end;
 }
 </style>
+@/api/system/role/types/role

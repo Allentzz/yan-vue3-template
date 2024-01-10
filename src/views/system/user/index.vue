@@ -20,7 +20,8 @@ const formRef = ref<FormInstance | null>(null)
 const formData = reactive({
   username: "",
   password: "",
-  emial: "",
+  email: "",
+  roles: "",
   phone: "",
   status: true
 })

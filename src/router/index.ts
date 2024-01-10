@@ -55,7 +55,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "Dashboard",
         meta: {
           title: "首页",
-          elIcon: "Crop",
+          elIcon: "House",
           affix: true
         }
       }
@@ -86,7 +86,16 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "角色管理",
         meta: {
           title: "角色管理",
-          elIcon: "Avatar"
+          elIcon: "SetUp"
+        }
+      },
+      {
+        path: "menu",
+        component: () => import("@/views/system/menu/index.vue"),
+        name: "菜单管理",
+        meta: {
+          title: "菜单管理",
+          elIcon: "Operation"
         }
       }
     ]
