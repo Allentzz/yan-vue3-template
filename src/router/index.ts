@@ -101,6 +101,36 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
+    path: "/form",
+    component: Layouts,
+    redirect: "/form",
+    name: "表单组件",
+    meta: {
+      title: "表单组件",
+      elIcon: "Document"
+    },
+    children: [
+      {
+        path: "form-create",
+        component: () => import("@/views/form/form-create/index.vue"),
+        name: "form-create",
+        meta: {
+          title: "form-create",
+          elIcon: "Tickets"
+        }
+      },
+      {
+        path: "step",
+        component: () => import("@/views/form/step/index.vue"),
+        name: "分步表单",
+        meta: {
+          title: "分步表单",
+          elIcon: "Memo"
+        }
+      }
+    ]
+  },
+  {
     path: "/link",
     meta: {
       title: "外链",

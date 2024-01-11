@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref, watch, computed } from "vue"
+import { reactive, ref, watch, computed, getCurrentInstance, onMounted } from "vue"
 import { createMenuDataApi, deleteMenuDataApi, updateMenuDataApi, getMenuDataApi } from "@/api/system/menu"
 import { type GetMenuData } from "@/api/system/menu/types/menu"
 import { type FormInstance, type FormRules, ElMessage, ElMessageBox } from "element-plus"
@@ -23,6 +23,12 @@ const componentPlaceholder = computed(() => {
 const isDirectory = (d: GetMenuData) => {
   return !!d.children?.length && !d.component
 }
+onMounted(() => {
+  console.log(getCurrentInstance())
+  // const _this = ctx
+  // console.log("getCurrentInstance()中的ctx:", _this)
+  // console.log("getCurrentInstance()中的proxy:", proxy)
+})
 
 const menuList = [
   {
@@ -178,7 +184,6 @@ const getMenuData = () => {
       // console.log(res)
       paginationData.total = res.data.total
       MenuData.value = res.data.list
-      console.log(MenuData)
     })
     .catch(() => {
       console.log(1)
