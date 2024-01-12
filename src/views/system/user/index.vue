@@ -69,7 +69,7 @@ const resetForm = () => {
   formData.phone = ""
   formData.email = ""
   formData.roles = ""
-  formData.status = ""
+  formData.status = false
 }
 //#endregion
 

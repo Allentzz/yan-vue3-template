@@ -131,31 +131,6 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: "/link",
-    meta: {
-      title: "外链",
-      svgIcon: "link"
-    },
-    children: [
-      {
-        path: "https://juejin.cn/post/7089377403717287972",
-        component: () => {},
-        name: "Link1",
-        meta: {
-          title: "中文文档"
-        }
-      },
-      {
-        path: "https://juejin.cn/column/7207659644487139387",
-        component: () => {},
-        name: "Link2",
-        meta: {
-          title: "新手教程"
-        }
-      }
-    ]
-  },
-  {
     path: "/table",
     component: Layouts,
     redirect: "/table/element-plus",
@@ -170,7 +145,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: () => import("@/views/table/element-plus/index.vue"),
         name: "ElementPlus",
         meta: {
-          title: "Element Plus",
+          title: "ProTable",
           keepAlive: true
         }
       },

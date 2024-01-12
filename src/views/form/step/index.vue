@@ -18,7 +18,7 @@ interface RuleForm {
   name: string
   amount: number
 }
-const onDone = (data) => {
+const onDone = (data: RuleForm) => {
   Object.assign(form, data)
   active.value = 2
 }

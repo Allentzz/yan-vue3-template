@@ -89,13 +89,16 @@ const xGridOpt: VxeGridProps = reactive({
       width: "50px"
     },
     {
+      type: "seq",
+      width: "60px"
+    },
+    {
       field: "username",
       title: "用户名"
     },
     {
       field: "roles",
       title: "角色",
-      /** 自定义列与 type: "html" 的列一起使用，会产生错误，所以采用 TSX 实现 */
       slots: RoleColumnSolts
     },
     {
@@ -195,7 +198,8 @@ const xFormOpt: VxeFormProps = reactive({
   /** 表单数据 */
   data: {
     username: "",
-    password: ""
+    password: "",
+    email: ""
   },
   /** 项列表 */
   items: [
@@ -203,6 +207,28 @@ const xFormOpt: VxeFormProps = reactive({
       field: "username",
       title: "用户名",
       itemRender: { name: "$input", props: { placeholder: "请输入" } }
+    },
+    {
+      field: "email",
+      title: "邮箱",
+      itemRender: { name: "$input", props: { placeholder: "请输入" } }
+    },
+    {
+      field: "status",
+      title: "状态",
+      itemRender: { name: "$switch" }
+    },
+    {
+      field: "roles",
+      title: "角色",
+      itemRender: {
+        name: "$select",
+        props: { placeholder: "请选择" },
+        options: [
+          { label: "admin", value: "admin" },
+          { label: "editor", value: "editor" }
+        ]
+      }
     },
     {
       field: "password",
@@ -270,6 +296,9 @@ const crudStore = reactive({
       xModalOpt.title = "修改用户"
       // 赋值
       xFormOpt.data.username = row.username
+      xFormOpt.data.email = row.email
+      xFormOpt.data.status = row.status
+      xFormOpt.data.roles = row.roles
     } else {
       crudStore.isUpdate = false
       xModalOpt.title = "新增用户"
