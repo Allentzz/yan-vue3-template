@@ -1,4 +1,4 @@
-import { PromiseTableResult, PromiseBaseResult, LoadingResultType, RunFuncType } from "./types"
+import { PromiseBaseResult, LoadingResultType, RunFuncType } from "./types"
 import { ref, onMounted, type Ref } from "vue"
 // 返回loading data run error
 export const useRequest = <T>(
@@ -26,8 +26,8 @@ export const useRequest = <T>(
 }
 
 // 列表页面 通用 请求 hook
-export const useTableRequest = <T>(
-  func: (params: any) => PromiseTableResult<T>,
+export const useTableRequest = (
+  func: (params: any) => any,
   params?: any,
   filterOptions?: Ref<any>,
   filterTableData?: (data: any) => any
@@ -41,13 +41,14 @@ export const useTableRequest = <T>(
 
   const loadData = async () => {
     loading.value = true
-    const [data] = await func({
+    const { data } = await func({
       pageNum: curPage.value,
       pageSize: pageSize.value,
       ...params,
       ...filterOptions?.value
     })
-    list.value = data?.list ?? data
+    // console.log(res.data)
+    list.value = data.list
     if (filterTableData) {
       list.value = filterTableData(list.value)
     }

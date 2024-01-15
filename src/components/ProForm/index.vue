@@ -131,16 +131,6 @@ defineExpose({
     </el-form>
   </div>
 </template>
-<style>
-.ProForm {
-  .el-select {
-    width: 100%;
-  }
-  .el-input {
-    width: 100% !important;
-  }
-}
-</style>
 <style scoped lang="scss">
 // ::deep .el-select {
 //   width: 100% !important

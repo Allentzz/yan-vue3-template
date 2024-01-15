@@ -2,7 +2,7 @@
 import ProForm from "../ProForm/index.vue"
 import Pagination from "../Pagination/index.vue"
 import { useTableRequest } from "@/hooks/hooks"
-import { PromiseTableResult } from "@/hooks/types"
+// import { PromiseTableResult } from "@/hooks/types"
 import { FormInstance, type TableInstance } from "element-plus"
 import { TableColumnCtx } from "element-plus"
 import { ProFormItemProps } from "../ProForm/index.vue"
@@ -24,7 +24,7 @@ export interface ColumnProps<T = any> extends Partial<TableColumnCtx<T>> {
 // 列表属性 继承 el-table 全部属性 会透传给 table
 interface ProTableProps {
   // 需要请求的一个方法 外面传入  需返回 PromiseTableResult 类型
-  requestFunc: (params: any) => PromiseTableResult<any>
+  requestFunc: (params: any) => any
   // 原始请求列表参数
   params: any
   // 列表每列 字段 属性数组
@@ -87,7 +87,8 @@ onMounted(async () => {
     loading.value = false
     list.value = listData.value
   } else {
-    await loadData()
+    const res = await loadData()
+    console.log(res)
   }
 })
 

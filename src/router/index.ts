@@ -145,6 +145,15 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: () => import("@/views/table/element-plus/index.vue"),
         name: "ElementPlus",
         meta: {
+          title: "ElementPlus",
+          keepAlive: true
+        }
+      },
+      {
+        path: "pro-table",
+        component: () => import("@/views/table/proTable/index.vue"),
+        name: "ProTable",
+        meta: {
           title: "ProTable",
           keepAlive: true
         }
