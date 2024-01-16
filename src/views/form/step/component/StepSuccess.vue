@@ -9,7 +9,26 @@ const back = () => {
 
 <template>
   <div style="padding: 0 15px">
-    <el-result icon="success" title="操作成功" desc="预计两小时内到账">
+    <el-result icon="success" title="操作成功">
+      <template #sub-title>
+        <div class="w-96 px-8 py-6 bg-gray-100 rounded-md">
+          <el-form>
+            <el-form-item label="付款账户:">
+              <span>{{ data.account }}</span>
+            </el-form-item>
+            <el-form-item label="收款账户:">
+              <span>{{ data.receiver }}</span>
+            </el-form-item>
+            <el-form-item label="收款人姓名:">
+              <span>{{ data.name }}</span>
+            </el-form-item>
+            <el-form-item label="转账金额:" style="margin-bottom: 0">
+              <span style="font-size: 24px">{{ data.amount }}</span>
+              <span> 元</span>
+            </el-form-item>
+          </el-form>
+        </div>
+      </template>
       <template #extra>
         <!-- <el-form label-width="100px" size="mini" class="ele-form-detail">
           <el-form-item label="付款账户:">

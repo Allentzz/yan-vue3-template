@@ -123,8 +123,8 @@ defineExpose({
     <!-- 搜索表单 -->
     <div class="ProTable__search" v-if="searchColumns.length">
       <ProForm ref="formRef" :form-data="filterOptions" :columns="searchColumns">
-        <template>
-          <!-- <template #FormFooter> -->
+        <!-- <template> -->
+        <template #FormFooter>
           <el-form-item>
             <el-button type="primary" @click="search">搜索</el-button>
             <el-button @click="reset">重置</el-button>
@@ -197,11 +197,11 @@ defineExpose({
     margin-bottom: 10px;
 
     flex: 0 0 auto;
-    background-color: white;
+    background-color: var(--el-fill-color-blank);
   }
 
   .table-header {
-    background-color: white;
+    background-color: var(--el-fill-color-blank);
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -216,7 +216,7 @@ defineExpose({
     overflow: hidden;
     box-shadow: 0px 0px 6px 4px rgba(0, 0, 0, 0.05);
     flex: 1 1 auto;
-    background-color: white;
+    background-color: var(--el-fill-color-blank);
   }
 
   .main-table {

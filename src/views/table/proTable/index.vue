@@ -31,7 +31,8 @@ const columns: Ref<ColumnProps<User>[]> = ref([
   {
     label: "角色",
     prop: "roles",
-    align: "center"
+    align: "center",
+    search: false
   },
   {
     label: "手机号",
@@ -68,7 +69,7 @@ const columns: Ref<ColumnProps<User>[]> = ref([
     label: "状态",
     prop: "status",
     align: "center",
-    search: true,
+    search: false,
     formProp: {
       required: true,
       el: "switch",
@@ -168,47 +169,45 @@ onMounted(() => {
 
 <template>
   <div class="app-container">
-    <el-card>
-      <pro-table stripe :columns="columns" :request-func="getTableDataApi" :params="{}">
-        <!-- 头部按钮 -->
-        <template #tableHeader>
-          <el-button @click="handleAdd" type="primary">新增</el-button>
-        </template>
+    <pro-table stripe :columns="columns" :request-func="getTableDataApi" :params="{}">
+      <!-- 头部按钮 -->
+      <template #tableHeader>
+        <el-button @click="handleAdd" type="primary">新增</el-button>
+      </template>
 
-        <template #roles="scope: { row: User | any }">
-          <el-tag v-if="scope.row.roles === 'admin'" effect="plain">admin</el-tag>
-          <el-tag v-else type="warning" effect="plain">{{ scope.row.roles }}</el-tag>
-        </template>
-        <!-- 自定义单元格 -->
-        <template #phone="scope: { row: User | any }">
-          <el-tag>{{ scope.row.phone }}</el-tag>
-        </template>
+      <template #roles="scope: { row: User | any }">
+        <el-tag v-if="scope.row.roles === 'admin'" effect="plain">admin</el-tag>
+        <el-tag v-else type="warning" effect="plain">{{ scope.row.roles }}</el-tag>
+      </template>
+      <!-- 自定义单元格 -->
+      <template #phone="scope: { row: User | any }">
+        <el-tag>{{ scope.row.phone }}</el-tag>
+      </template>
 
-        <template #status="scope: { row: User | any }">
-          <el-tag :type="scope.row.status ? 'success' : 'danger'">{{ scope.row.status ? "启用" : "禁用" }}</el-tag>
-        </template>
-        <!-- 操作 -->
-        <template #action="scope: { row: User | any }">
-          <el-button type="primary" size="small" round @click="() => handleEdit(scope.row)">修改</el-button>
-          <el-button type="danger" size="small" round @click="() => handleDelete(scope.row)">删除</el-button>
-        </template>
-      </pro-table>
-      <el-dialog v-model="dialogModel.dialogVisiable" :width="500" :title="dialogModel.title" @close="resetForm">
-        <pro-form
-          ref="proFormRef"
-          :columns="formColumns"
-          :form-data="formModel"
-          :vertical="true"
-          :rules="rules"
-          :label-width="'110px'"
-        />
-        <template #footer>
-          <span class="dialog-footer">
-            <el-button @click="dialogModel.dialogVisiable = false">取消</el-button>
-            <el-button type="primary" @click="dialogConfirm"> 确认 </el-button>
-          </span>
-        </template>
-      </el-dialog>
-    </el-card>
+      <template #status="scope: { row: User | any }">
+        <el-tag :type="scope.row.status ? 'success' : 'danger'">{{ scope.row.status ? "启用" : "禁用" }}</el-tag>
+      </template>
+      <!-- 操作 -->
+      <template #action="scope: { row: User | any }">
+        <el-button type="primary" size="small" round @click="() => handleEdit(scope.row)">修改</el-button>
+        <el-button type="danger" size="small" round @click="() => handleDelete(scope.row)">删除</el-button>
+      </template>
+    </pro-table>
+    <el-dialog v-model="dialogModel.dialogVisiable" :width="500" :title="dialogModel.title" @close="resetForm">
+      <pro-form
+        ref="proFormRef"
+        :columns="formColumns"
+        :form-data="formModel"
+        :vertical="true"
+        :rules="rules"
+        :label-width="'110px'"
+      />
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogModel.dialogVisiable = false">取消</el-button>
+          <el-button type="primary" @click="dialogConfirm"> 确认 </el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>

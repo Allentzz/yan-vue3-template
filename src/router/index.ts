@@ -170,6 +170,38 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
+    path: "/result",
+    component: Layouts,
+    redirect: "/result/success",
+    name: "Success",
+    meta: {
+      title: "结果",
+      elIcon: "CircleCheck"
+    },
+    children: [
+      {
+        path: "success",
+        component: () => import("@/views/result/success/index.vue"),
+        name: "successPage",
+        meta: {
+          title: "成功页",
+          elIcon: "CircleCheck",
+          keepAlive: true
+        }
+      },
+      {
+        path: "fail",
+        component: () => import("@/views/result/fail/index.vue"),
+        name: "failPage",
+        meta: {
+          title: "失败页",
+          elIcon: "CircleClose",
+          keepAlive: true
+        }
+      }
+    ]
+  },
+  {
     path: "/menu",
     component: Layouts,
     redirect: "/menu/menu1",
