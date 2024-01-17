@@ -104,9 +104,9 @@ export const constantRoutes: RouteRecordRaw[] = [
     path: "/form",
     component: Layouts,
     redirect: "/form",
-    name: "表单组件",
+    name: "表单",
     meta: {
-      title: "表单组件",
+      title: "表单",
       elIcon: "Document"
     },
     children: [
@@ -175,7 +175,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     redirect: "/result/success",
     name: "Success",
     meta: {
-      title: "结果",
+      title: "结果页面",
       elIcon: "CircleCheck"
     },
     children: [
@@ -196,6 +196,48 @@ export const constantRoutes: RouteRecordRaw[] = [
         meta: {
           title: "失败页",
           elIcon: "CircleClose",
+          keepAlive: true
+        }
+      }
+    ]
+  },
+  {
+    path: "/exception",
+    component: Layouts,
+    redirect: "/exception/403",
+    name: "Exception",
+    meta: {
+      title: "异常页面",
+      elIcon: "DocumentDelete"
+    },
+    children: [
+      {
+        path: "403",
+        component: () => import("@/views/exception/403/index.vue"),
+        name: "403",
+        meta: {
+          title: "403",
+          elIcon: "DocumentRemove",
+          keepAlive: true
+        }
+      },
+      {
+        path: "404",
+        component: () => import("@/views/exception/404/index.vue"),
+        name: "404",
+        meta: {
+          title: "404",
+          elIcon: "DocumentDelete",
+          keepAlive: true
+        }
+      },
+      {
+        path: "500",
+        component: () => import("@/views/exception/500/index.vue"),
+        name: "500",
+        meta: {
+          title: "500",
+          elIcon: "DocumentChecked",
           keepAlive: true
         }
       }
