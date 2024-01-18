@@ -244,6 +244,36 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
+    path: "/extension",
+    component: Layouts,
+    redirect: "/extension",
+    name: "Extension",
+    meta: {
+      title: "拓展组件",
+      elIcon: "TurnOff"
+    },
+    children: [
+      {
+        path: "tag",
+        component: () => import("@/views/extension/tag/index.vue"),
+        name: "tag",
+        meta: {
+          title: "标签组件",
+          elIcon: "PriceTag"
+        }
+      },
+      {
+        path: "dialog",
+        component: () => import("@/views/extension/dialog/index.vue"),
+        name: "dialog",
+        meta: {
+          title: "拖拽弹窗",
+          elIcon: "CopyDocument"
+        }
+      }
+    ]
+  },
+  {
     path: "/menu",
     component: Layouts,
     redirect: "/menu/menu1",
